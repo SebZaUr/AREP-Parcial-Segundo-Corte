@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Form Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-$END$
+<h1>Lineal Search</h1>
+<form action="/linealSearch">
+    <label for="lineal">List:</label><br>
+    <input type="text" id="lineal" name="list"><br><br>
+    <label for="valueSearch">Value:</label><br>
+    <input type="text" id="valueSearch" name="list"><br><br>
+    <input type="button" value="Submit" onclick="linealSearch(lineal,valueSearch)">
+</form>
+<div id="linealSearchAnswer"></div>
+
+<h1>Binary Search</h1>
+<form action="/binarySearch">
+    <label for="second">List:</label><br>
+    <input type="text" id="second" name="second"><br><br>
+    <label for="binary">Value:</label><br>
+    <input type="text" id="binary" name="binary"><br><br>
+    <input type="button" value="Submit" onclick="binarySearch(second,binary)">
+</form>
+
+<div id="postrespmsg"></div>
+
+<script>
+    const server = "http://localhost:33025";
+    function linealSearch(list,find){
+        let url = server + "/linearSearch?list=" + list.value + "&value=" + find.value;
+        console.log(url);
+        fetch (url, {method: 'POST'})
+            .then(x => x.text())
+            .then(y => document.getElementById("linealSearchAnswer").innerHTML = y);
+    }
+
+    function binarySearch(list,find){
+        let url = server + "/binarySearch?list=" + list.value + "&value=" + find.value;
+
+        fetch (url, {method: 'POST'})
+            .then(x => x.text())
+            .then(y => document.getElementById("postrespmsg").innerHTML = y);
+    }
+</script>
 </body>
 </html>
